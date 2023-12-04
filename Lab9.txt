@@ -1,0 +1,25 @@
+class Solution {
+    public int findJudge(int n, int[][] trust) {
+       if (n == 1 && trust.length == 0) return 1;
+        if (n == 1) return trust[0][1];
+        Set<Integer>[] array = new Set[n + 1];
+        for (int[] t : trust) {
+            int x = t[0], z = t[1];
+            if (array[x] == null) array[x] = new HashSet<>();
+            array[x].add(z);
+        }
+        int count = 0, par = 0;
+        for (int i = 1; i <= n; i++) {
+            if (array[i] == null) {
+                count++;
+                par = i;
+            }
+        }
+        if (count > 1) return -1;
+        for (int i = 1; i <= n; i++) {
+            if (i == par) continue;
+            if (!array[i].contains(par)) return -1;
+        }
+        return par; 
+    }
+}
