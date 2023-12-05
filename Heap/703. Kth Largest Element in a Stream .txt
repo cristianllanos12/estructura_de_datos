@@ -1,0 +1,21 @@
+class KthLargest {
+    private int maxElements;
+    private PriorityQueue<Integer> minHeap; 
+
+    public KthLargest(int k, int[] nums) {
+        this.maxElements = k; 
+        this.minHeap = new PriorityQueue(maxElements); 
+        for (int num : nums) {
+            minHeap.add(num); 
+            if (minHeap.size() > maxElements) 
+                 minHeap.remove();
+        } 
+    }
+    
+    public int add(int val) {
+        minHeap.add(val);
+        if (minHeap.size() > maxElements) 
+            minHeap.remove();
+        return minHeap.peek(); 
+    }
+}
